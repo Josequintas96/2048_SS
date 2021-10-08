@@ -1,0 +1,61 @@
+import cv2
+import matplotlib.pyplot as plt
+import keyboard
+
+arr = []
+i=0
+while i < 4:
+	arr2 = []
+	i2=0
+	while i2 < 4:
+		arr2.append(0)
+		i2+=1
+	arr.append(arr2)
+	i+=1
+
+i=0
+print("\t", end='')
+while i < 4:
+	i2=0
+	while i2 < 4:
+		print(arr[i][i2], "\t", end='')
+		i2+=1
+	i+=1
+	print("\n\t", end='')
+
+print()
+name = input("Enter name: ")
+print("Name insert is: " , name)
+#print(arr)
+
+print("=>")
+
+keyboard.write("python3 logic.py")
+
+while False:
+	#print("Batman")
+	key = cv2.waitKey(1) & 0xFF
+	#print("Super ", key)
+	if key == 27:
+		quit()
+	if key ==0:
+		print("up")
+	elif key ==1:
+		print("down")
+	elif key == 2:
+		print("left")
+	elif key == 3:
+		print("right")
+	elif key != 255:
+		print(key)
+
+#	try:
+#		if keyboard.is_pressed('a', supress=False):
+#			print("Superman")
+#			break
+#		else:
+#			# print("Batman")
+#			pass
+#	except:
+#		break
+
