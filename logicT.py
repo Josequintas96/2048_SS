@@ -26,6 +26,9 @@ class Arr_block:
 	score = 0
 	space =0 #number of square filled
 	lengthX = 4
+	highspace_T = True #is tthere a higher number
+	high_space = [0,0] #location of higher number
+	high_spaceV = 0 #value of higher number
 	def __init__(self):
 		#print("Initialize happen")
 		i=0
@@ -59,6 +62,18 @@ class Arr_block:
 	def spaceD(self):
 		self.space-=1
 
+	def ret_highspace(self):
+		#return location wheere it is suppose too locate the higher numbeer of equation
+		return self.high_space
+
+	def ret_highspace_T(self):
+		#return if there is a higher number of equation
+		return self.highspace_T
+
+	def ret_highspace_V(self):
+		#return value of higher number of equation
+		return self.high_spaceV
+
 	def scoreX(self):
 		print("Score: ", self.score)
 	def ret_score(self):
@@ -86,16 +101,30 @@ class Arr_block:
 		ix = len(self.arr)
 		#print("ix: ", ix)
 		i = 0
+		maxnumb = 0
 		while i < ix:
 			ix2 = len(self.arr[i])
 			#print("\tix2: ", ix2)
 			i2 = 0
 			arr_2048_0 = []
 			while i2 < ix2:
+				if self.arr[i][i2].val() > maxnumb:
+					# print("This is a maximun number: ", maxnumb)
+					maxnumb = self.arr[i][i2].val()
+					self.high_space[0] = i
+					self.high_space[1] = i2
 				arr_2048_0.append(self.arr[i][i2].val())
 				i2+=1
 			arr2048.append(arr_2048_0)	
 			i+=1
+		if maxnumb !=0 and maxnumb > self.high_spaceV:
+			self.high_spaceV = maxnumb
+		
+		if maxnumb ==0:
+			self.highspace_T = False
+			self.highspace = [0,0]
+		else:
+			self.highspace_T = True
 		return arr2048
 
 	def cheap_2048(self, arrX):
@@ -400,213 +429,8 @@ class Arr_block:
 
 
 
-	# def new_move_original(self, val):
-	# 	#print("\tDouble Special key is ", val)
-	# 	if val == "up":
-	# 		#print("Running right")
-	# 		i=1
-	# 		limitX = 0
-	# 		while i < self.lengthX:
-	# 			i2 = 0
-	# 			 #this is the last square can be compare, in case oof fusion, this sqaurre most be take out of equation
-	# 			while i2 < 4:
-	# 				print("Remenber limit is: ", limitX)
-	# 				print("Working on => ", i, ",", i2, "=>", limitX)
-	# 				#print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
-	# 				if self.arr[i][i2].val() > 0:
-	# 					i3 = i
-	# 					nextX = True
-	# 					while i3 > limitX and nextX:
-	# 						#print("\t Something must be done")
-	# 						if self.arr[i3][i2].val() == self.arr[i3-1][i2].val() :
-	# 							print("Compare: ",self.arr[i3][i2].val() , " and ", self.arr[i3-1][i2].val() )
-	# 							#increase i3-1
-	# 							self.arr[i3-1][i2].incr(self.arr[i3][i2].val())
-
-	# 							#increase score
-	# 							self.new_score(self.arr[i3-1][i2].val())
-
-	# 							#replace i3 with 0
-	# 							self.arr[i3][i2].reset(0)
-
-	# 							#decrease space
-	# 							self.spaceD()
-								
-	# 							# # fix the limit
-	# 							# limitX = i3
-
-	# 							# print("\t\t Print new limit: ", limitX)
-	# 							#No new round
-	# 							nextX = False
-	# 							i3-=1
-
-								
-	# 						elif self.arr[i3-1][i2].val() == 0:
-	# 							print("\t Interchange happen" )
-								
-	# 							#interchangee values
-	# 							self.arr[i3-1][i2].reset( self.arr[i3][i2].val() ) 
-	# 							self.arr[i3][i2].reset(0)
-
-	# 							#prepare next round
-	# 							i3-=1
-	# 							nextX =True
-	# 						else:
-	# 							print("\tAction no taken")
-	# 							#nothing happen => cancel
-	# 							nextX= False
-	# 				i2+=1
-	# 			i+=1
-				
-	# 	elif val == "down":
-	# 		#print("Running right")
-	# 		i=2
-	# 		while i >= 0:
-	# 			i2 = 0
-	# 			while i2 < 4:
-	# 				print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
-	# 				if self.arr[i][i2].val() > 0:
-	# 					i3 = i
-	# 					nextX = True
-	# 					while i3 < 3 and nextX:
-	# 						if self.arr[i3][i2].val() == self.arr[i3+1][i2].val() :
-	# 							print("Compare: ",self.arr[i3][i2].val() , " and ", self.arr[i3-1][i2].val() )
-	# 							#increase i3+1
-	# 							self.arr[i3+1][i2].incr(self.arr[i3][i2].val())
-	# 							#increase score
-	# 							self.new_score(self.arr[i3+1][i2].val())
-
-	# 							#replace i3 with 0
-	# 							self.arr[i3][i2].reset(0)
-	# 							#decrease space
-	# 							self.spaceD()
-	# 							#No new round
-	# 							nextX = False
-	# 							i3-=1
-
-	# 						elif self.arr[i3+1][i2].val() == 0:
-	# 							print("\t Interchange happen" )
-	# 							#interchangee values
-	# 							self.arr[i3+1][i2].reset( self.arr[i3][i2].val() )
-	# 							self.arr[i3][i2].reset(0)
-	# 							#prepare next round
-	# 							i3+=1
-	# 							nextX =True
-	# 						else:
-	# 							print("\tAction no taken")
-	# 							#nothing happen => cancel
-	# 							nextX= False
-	# 				i2+=1
-	# 			i-=1
-	# 	elif val == "right":
-    #                     i2=2
-    #                     while i2 >= 0:
-    #                             i=0
-    #                             while i < 4:
-    #                                     print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
-    #                                     if self.arr[i][i2].val() > 0:
-    #                                             i3 = i2
-    #                                             nextX = True
-    #                                             while i3 < 3 and nextX:
-    #                                                     if self.arr[i][i3+1].val() == self.arr[i][i3].val():
-    #                                                             print("Compare: ",self.arr[i][i3+1].val() , " and ", self.arr[i][i3].val())
-    #                                                             #increase i3-1
-    #                                                             self.arr[i][i3+1].incr(self.arr[i][i3].val())
-    #                                                             #increase score
-    #                                                             self.new_score(self.arr[i][i3+1].val())
-    #                                                             #replace i3 with 0
-    #                                                             self.arr[i][i3].reset(0)
-    #                                                             #decrease space
-    #                                                             self.spaceD()
-    #                                                             #No new round
-    #                                                             nextX = False
-    #                                                             i3+=1
-    #                                                     elif self.arr[i][i3+1].val() == 0:
-    #                                                             print("\t Interchange happen" )
-    #                                                             #interchangee values
-    #                                                             self.arr[i][i3+1].reset( self.arr[i][i3].val() )
-    #                                                             self.arr[i][i3].reset(0)
-
-    #                                                             #prepare next round
-    #                                                             i3+=1
-    #                                                             nextX =True
-    #                                                     else:
-    #                                                             print("\tAction no taken")
-    #                                                             #nothing happen => cancel
-    #                                                             nextX = False
-
-                                                                
-                                                        
-    #                                     i+=1
-    #                             i2-=1
-	# 	elif val == "left":
-    #                     i2=1
-    #                     while i2 < 4:
-    #                             i=0
-    #                             while i < 4:
-    #                                     print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
-    #                                     if self.arr[i][i2].val() > 0:
-    #                                             i3 = i2
-    #                                             nextX = True
-    #                                             while i3 >0 and nextX:
-    #                                                     if self.arr[i][i3-1].val() == self.arr[i][i3].val():
-    #                                                             print("Compare: ",self.arr[i][i3-1].val() , " and ", self.arr[i][i3].val())
-    #                                                             #increase i3-1
-    #                                                             self.arr[i][i3-1].incr(self.arr[i][i3].val())
-    #                                                             #increase score
-    #                                                             self.new_score(self.arr[i][i3-1].val())
-    #                                                             #replace i3 with 0
-    #                                                             self.arr[i][i3].reset(0)
-    #                                                             #decrease space
-    #                                                             self.spaceD()
-    #                                                             #No new round
-    #                                                             nextX = False
-    #                                                             i3-=1
-    #                                                     elif self.arr[i][i3-1].val() == 0:
-    #                                                             print("\t Interchange happen" )
-    #                                                             #interchangee values
-    #                                                             self.arr[i][i3-1].reset( self.arr[i][i3].val() )
-    #                                                             self.arr[i][i3].reset(0)
-
-    #                                                             #prepare next round
-    #                                                             i3-=1
-    #                                                             nextX =True
-    #                                                     else:
-    #                                                             print("\tAction no taken")
-    #                                                             #nothing happen => cancel
-    #                                                             nextX = False
-
-                                                                
-                                                        
-    #                                     i+=1
-    #                             i2+=1
-		
 
 
-# print("=======================================================================")
-# print("======================PRINT EXTRA TEST=================================")
-# print("=======================================================================")
-
-# ballon = Arr_block()
-# ballon.length()
-# arrX = [[2,2,2,2],[2,2,2,4],[0,0,0,0],[0,0,0,4]]
-# ballon.cheap_2048(arrX)
-# ballon.illustrate()
-# ballon.new_move("up")
-# print()
-# print()
-# ballon.illustrate()
-
-# ballon = Arr_block()
-# ballon.length()
-# arrX = arrX = [[0,0,0,0],[4,8,4,4],[2,0,0,2],[0,0,0,0]]
-# ballon.cheap_2048(arrX)
-# ballon.illustrate()
-# ballon.new_move("left")
-# print()
-# print()
-# ballon.illustrate()
-		
 
 
 

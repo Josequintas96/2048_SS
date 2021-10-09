@@ -1,4 +1,9 @@
 import pygame
+import sys
+# from .2048_SS.logicT import *
+# complete path => /Users/failop/Projects/p2048/2048_SS
+#complete path => 2048_SS
+sys.path.append('../')
 from logicT import * 
 
 pygame.init()
@@ -37,21 +42,51 @@ playerY = 480
 playerX_c = 0
 playerY_c = 0
 
+######################################################################################################
+#here I am transfering the square
 squareImg1 = pygame.image.load("numbers/stop_128.png")
+special_squareImg1 = pygame.image.load("numbers/special_stop_128.png")
+special_squareImg2 = pygame.image.load("numbers/special2_stop_128.png")
 
-def stopchain(pX, pY):
+def stopchain(pX, pY, special, ix):
 	sudoku = 138
 	i=0
 	while i < 4:
 		i2=0
 		while i2 < 4:
-			stopI(pX+sudoku*i, pY+sudoku*i2)
+			if special == False:
+				stopI(pX+sudoku*i, pY+sudoku*i2)
+			else:
+				if ix[0] == i2 and ix[1] ==i:
+					stopII(pX+sudoku*i, pY+sudoku*i2)
+				else:
+					stopI(pX+sudoku*i, pY+sudoku*i2)
+			
 			i2+=1
 		i+=1
 	
-
 def stopI(pX, pY):
-        screen.blit(squareImg1,(pX, pY))
+	screen.blit(squareImg1,(pX, pY))
+	# screen.blit(special_squareImg1,(pX, pY))
+def stopII(pX, pY):
+	screen.blit(special_squareImg2,(pX, pY))
+
+######################################################################################################
+#Interactions ==> Comments
+GameoverImg = pygame.image.load("numbers/game_over_512.png")
+Gameover_T = False
+
+def gameOver(pX, pY):
+	screen.blit(GameoverImg,(pX, pY))
+	# screen.blit(special_squareImg1,(pX, pY))
+
+CongratulationImg = pygame.image.load("numbers/congratulation_512.png")
+Congratulation_T = False
+
+def Congratulation(pX, pY):
+	screen.blit(CongratulationImg,(pX, pY))
+	# screen.blit(special_squareImg1,(pX, pY))
+
 
 def gameStage(pX, pY, arrX):
 	# print("Array: ", arrX)
@@ -171,13 +206,22 @@ while running:
 
 			if event.key == pygame.K_RETURN:
 				scoreValue+=1
-				print("The value of enter: ", scoreValue)
+				# print("The value of enter: ", scoreValue)
+				if Gameover_T ==False:
+					Gameover_T = True
+				else:
+    					Gameover_T = False
 			if event.key == pygame.K_a:
 				print("New arouond start")
-				if gameX.new_round() == False:
-					print("Game Over")
+				# if gameX.new_round() == False:
+				# 	print("Game Over")
+				# else:
+				# 	scoreValue = gameX.ret_score()
+				if Congratulation_T == False:
+					Congratulation_T = True
 				else:
-					scoreValue = gameX.ret_score()
+					Congratulation_T = False
+
 		if event.type == pygame.KEYUP:
 			if event.key == pygame.K_LEFT:
 				print("Left arrrow release")
@@ -207,9 +251,10 @@ while running:
 
 
 
-	stopchain(160,120)
+	
 
 	gameStage(208,168, gameX.array_illustration())
+	stopchain(160,120, gameX.ret_highspace_T() , gameX.ret_highspace() )
 	# gameStage(208,168, [[2,0,0,4],[0,0,0,0],[0,0,0,0],[16,0,0,8]])
 	# gameStage(208,168, [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])
 	
@@ -219,12 +264,21 @@ while running:
 		gameX.new_round()
 		game_end = False
 		scoreValue = gameX.ret_score()
-	else:
-		print("This is not suppose tto happen")
+	# else:
+	# 	print("This is not suppose tto happen")
 
 	#set thee value of the score
 	scoreX(396, 680)
 	scoreVX(680, 680)
+
+	if Gameover_T == True:
+		gameOver(200, 200)
+
+	if gameX.ret_highspace_V() == 2048 and Congratulation_T == False:
+		# print("Congratulatiion, end game")
+		Congratulation(180, 140)
+	# if Congratulation_T == True:
+	# 	Congratulation(180, 140)
 
 	pygame.display.update()
 	playerX += playerX_c

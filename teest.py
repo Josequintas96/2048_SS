@@ -31,7 +31,27 @@ class TestImportMethods(unittest.TestCase):
 		gameX.false_score(9999)
 		self.assertEqual(gameX.ret_score(), 9999)
 
+	def test_highspace(self):
+		gameX = Arr_block()
+		arrX = [[0,0,0,0],[8,16,32,0],[2,2,2,2],[0,0,0,8]]
+		gameX.cheap_2048(arrX)
+		gameX.array_illustration()
+		self.assertEqual(gameX.ret_highspace(), [1,2] )
 	
+	def test_highspaceV(self):
+		gameX = Arr_block()
+		arrX = [[0,0,0,0],[8,16,32,0],[2,2,2,2],[64,0,0,8]]
+		gameX.cheap_2048(arrX)
+		gameX.array_illustration()
+		self.assertEqual(gameX.ret_highspace_V(), 64 )
+
+	def test_highspaceT(self):
+		gameX = Arr_block()
+		arrX = [[0,0,0,0],[8,16,32,0],[2,2,2,2],[64,0,0,8]]
+		gameX.cheap_2048(arrX)
+		gameX.array_illustration()
+		self.assertEqual(gameX.ret_highspace_T(), True )
+
 	def test_length(self):
 		gameX = Arr_block()
 		self.assertEqual(gameX.return_length(), [4,4] )
