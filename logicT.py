@@ -98,6 +98,18 @@ class Arr_block:
 			print("\n\t", end='')
 		self.scoreX()
 
+	def restore_stage(self):
+		print("Result")
+		while i < ix:
+			ix2 = len(self.arr[i])
+			i2 = 0
+			while i2 < ix2:
+				self.arr[i][i2].reset(0)
+				i2+=1	
+			i+=1
+		self.false_score(0)
+
+
 	def array_illustration(self):
 		arr2048 = []
 		ix = len(self.arr)
