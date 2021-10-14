@@ -100,6 +100,8 @@ class Arr_block:
 
 	def restore_stage(self):
 		print("Result")
+		ix = len(self.arr)
+		i = 0
 		while i < ix:
 			ix2 = len(self.arr[i])
 			i2 = 0
