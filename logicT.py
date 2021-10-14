@@ -29,7 +29,7 @@ class Arr_block:
 	highspace_T = True #is tthere a higher number
 	high_space = [0,0] #location of higher number
 	high_spaceV = 0 #value of higher number
-	# prev_st = [] #store thee values of actual run => previous one
+	prev_st = [] #store thee values of actual run => previous one
 
 	def __init__(self):
 		#print("Initialize happen")
