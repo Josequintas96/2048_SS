@@ -105,7 +105,7 @@ class Arr_block:
 			ix2 = len(self.arr[i])
 			i2 = 0
 			while i2 < ix2:
-				self.arr[i][i2].reset(0)
+				self.arr[i][i2].reset(2)
 				i2+=1	
 			i+=1
 		self.false_score(0)
