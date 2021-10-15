@@ -99,7 +99,6 @@ class Arr_block:
 		self.scoreX()
 
 	def restore_stage(self):
-		print("Result")
 		ix = len(self.arr)
 		i = 0
 		while i < ix:

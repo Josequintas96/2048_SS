@@ -83,6 +83,12 @@ class TestImportMethods(unittest.TestCase):
 		arrX2 = gameX.array_illustration()
 		self.assertEqual(arrX2, [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]])
 
+	def test_restore_stage(self):
+		gameX = Arr_block()
+		gameX.restore_stage()
+		arrX2 = gameX.array_illustration()
+		self.assertEqual(arrX2, [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]])
+
 	def test_hard_reset2(self):
 		gameX = Arr_block()
 		arrX = [[32,16,8,2],[32,16,8,2],[32,16,8,4],[2,2,2,0]]
