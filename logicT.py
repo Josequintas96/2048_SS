@@ -26,10 +26,12 @@ class Arr_block:
 	score = 0
 	space =0 #number of square filled
 	lengthX = 4
-	highspace_T = True #is tthere a higher number
+	highspace_T = True #is there a higher number
 	high_space = [0,0] #location of higher number
 	high_spaceV = 0 #value of higher number
-	prev_st = [] #store thee values of actual run => previous one
+	prev_st = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] #store thee values of actual run => previous one
+	prev_sc = 0 #previous score shoould bee
+	prev_sp = 0 #previous number of scares shoould be
 
 	def __init__(self):
 		#print("Initialize happen")
@@ -63,6 +65,8 @@ class Arr_block:
 		self.space+=1
 	def spaceD(self):
 		self.space-=1
+	def fake_space(self, fs):
+		self.space = fs
 
 	def ret_highspace(self):
 		#return location wheere it is suppose too locate the higher numbeer of equation
@@ -98,20 +102,29 @@ class Arr_block:
 			print("\n\t", end='')
 		self.scoreX()
 
-	def restore_stage(self):
+	def set_current_stage(self):
+		#save the stage using at the moment
 		ix = len(self.arr)
 		i = 0
 		while i < ix:
 			ix2 = len(self.arr[i])
 			i2 = 0
 			while i2 < ix2:
-				self.arr[i][i2].reset(0)
+				self.prev_st[i][i2] = self.arr[i][i2].val()
 				i2+=1	
 			i+=1
-		self.false_score(0)
+		self.prev_sc = self.ret_score()
+		self.prev_sp = self.spaceX()
+
+	def restore_stage(self):
+		#restore the previous stage
+		self.cheap_2048(self.prev_st)
+		self.false_score(self.prev_sc)
+		self.fake_space(self.prev_sp)
 
 
 	def array_illustration(self):
+		# set up the highest values and return and array of current values 
 		arr2048 = []
 		ix = len(self.arr)
 		#print("ix: ", ix)
@@ -164,9 +177,11 @@ class Arr_block:
 				i2+=1	
 			i+=1
 		self.false_score(0)
+		self.fake_space(0)
 
 	def new_round(self):
-    	
+    	# start neew round by adding a number 2 on a random location
+		#  if spcae is full reetun False else return True
 		if self.spaceX() == 16:
 			return False
 		valX = randint(0,15)
@@ -231,8 +246,8 @@ class Arr_block:
 				#this is the last square can be compare, in case oof fusion, this sqaurre most be take out of equation
 			while i2 < 4:
 				limitX =0
-				print("Remenber limit is: ", limitX)
-				print("Working on ", i2)
+				# print("Remenber limit is: ", limitX)
+				# print("Working on ", i2)
 				#print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
 				i=1
 				while i< self.lengthX:
@@ -242,7 +257,12 @@ class Arr_block:
 						while i3 > limitX and nextX:
 							#print("\t Something must be done")
 							if self.arr[i3][i2].val() == self.arr[i3-1][i2].val() :
-								print("Compare: ",self.arr[i3][i2].val() , " and ", self.arr[i3-1][i2].val() )
+								
+								#movement is going too happen for first time, sooo I want to save the current game
+								if occurence == False:
+									self.set_current_stage()
+
+								# print("Compare: ",self.arr[i3][i2].val() , " and ", self.arr[i3-1][i2].val() )
 								#increase i3-1
 								self.arr[i3-1][i2].incr(self.arr[i3][i2].val())
 
@@ -267,7 +287,12 @@ class Arr_block:
 								occurence = True
 								
 							elif self.arr[i3-1][i2].val() == 0:
-								print("\t Interchange happen" )
+								
+								#movement is going too happen for first time, sooo I want to save the current game
+								if occurence == False:
+									self.set_current_stage()
+
+								# print("\t Interchange happen" )
 								
 								#interchangee values
 								self.arr[i3-1][i2].reset( self.arr[i3][i2].val() ) 
@@ -279,29 +304,34 @@ class Arr_block:
 								#there is an action
 								occurence = True
 							else:
-								print("\tAction no taken")
-								#nothing happen => cancel
+								# print("\tAction no taken")
+								#nothing happen => cancel, no modificatioon on new currrent
 								nextX= False
 					i+=1
 				i2+=1
 			# i+=1
 				
 		elif val == "down":
-			print("Running DOWN")
+			# print("Running DOWN")
 			i=2
 			# while i >= 0:
 			i2 = 0
 			while i2 < 4:
 				i =2
 				limitX = 3
-				print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
+				# print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
 				while i >= 0:
 					if self.arr[i][i2].val() > 0:
 						i3 = i
 						nextX = True
 						while i3 < limitX and nextX:
 							if self.arr[i3][i2].val() == self.arr[i3+1][i2].val() :
-								print("Compare: ",self.arr[i3][i2].val() , " and ", self.arr[i3-1][i2].val() )
+								
+								#movement is going too happen for first time, sooo I want to save the current game
+								if occurence == False:
+									self.set_current_stage()
+
+								# print("Compare: ",self.arr[i3][i2].val() , " and ", self.arr[i3-1][i2].val() )
 								#increase i3+1
 								self.arr[i3+1][i2].incr(self.arr[i3][i2].val())
 								#increase score
@@ -322,7 +352,12 @@ class Arr_block:
 								occurence = True
 
 							elif self.arr[i3+1][i2].val() == 0:
-								print("\t Interchange happen" )
+								
+								#movement is going too happen for first time, sooo I want to save the current game
+								if occurence == False:
+									self.set_current_stage()
+
+								# print("\t Interchange happen" )
 								#interchangee values
 								self.arr[i3+1][i2].reset( self.arr[i3][i2].val() )
 								self.arr[i3][i2].reset(0)
@@ -332,8 +367,8 @@ class Arr_block:
 								#there is an action
 								occurence = True
 							else:
-								print("\tAction no taken")
-								#nothing happen => cancel
+								# print("\tAction no taken")
+								#nothing happen => cancel, no modifiction oon current stage
 								nextX= False
 					i-=1			
 				i2+=1
@@ -343,7 +378,7 @@ class Arr_block:
 			#while i2 >= 0:
 			i=0
 			while i < 4:
-				print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
+				# print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
 				limitX = 3
 				i2 = 2
 				while i2 >=0: 
@@ -352,7 +387,12 @@ class Arr_block:
 						nextX = True
 						while i3 < limitX and nextX:
 							if self.arr[i][i3+1].val() == self.arr[i][i3].val():
-								print("Compare: ",self.arr[i][i3+1].val() , " and ", self.arr[i][i3].val())
+								
+								#movement is going too happen for first time, sooo I want to save the current game
+								if occurence == False:
+									self.set_current_stage()
+
+								# print("Compare: ",self.arr[i][i3+1].val() , " and ", self.arr[i][i3].val())
 								#increase i3-1
 								self.arr[i][i3+1].incr(self.arr[i][i3].val())
 								#increase score
@@ -369,7 +409,12 @@ class Arr_block:
 								#there is an action
 								occurence = True
 							elif self.arr[i][i3+1].val() == 0:
-								print("\t Interchange happen" )
+								
+								#movement is going too happen for first time, sooo I want to save the current game
+								if occurence == False:
+									self.set_current_stage()
+
+								# print("\t Interchange happen" )
 								#interchangee values
 								self.arr[i][i3+1].reset( self.arr[i][i3].val() )
 								self.arr[i][i3].reset(0)
@@ -380,7 +425,7 @@ class Arr_block:
 								#there is an action
 								occurence = True
 							else:
-								print("\tAction no taken")
+								# print("\tAction no taken")
 								#nothing happen => cancel
 								nextX = False
 					i2-=1
@@ -392,8 +437,8 @@ class Arr_block:
 			i = 0
 			while i < 4:
 				# print("(",i, " , ", i2, ")")
-				if i2 < 4:
-					print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
+				# if i2 < 4:
+				# 	print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
 				limitX = 0
 				i2 = 1
 				while i2 < 4: 
@@ -404,7 +449,12 @@ class Arr_block:
 							while i3 >limitX and nextX:
 								#print("i3 => ", i3)
 								if self.arr[i][i3-1].val() == self.arr[i][i3].val():
-									print("Compare: ",self.arr[i][i3-1].val() , " and ", self.arr[i][i3].val())
+									
+									#movement is going too happen for first time, sooo I want to save the current game
+									if occurence == False:
+										self.set_current_stage()
+
+									# print("Compare: ",self.arr[i][i3-1].val() , " and ", self.arr[i][i3].val())
 									#increase i3-1
 									self.arr[i][i3-1].incr(self.arr[i][i3].val())
 									#increase score
@@ -422,7 +472,12 @@ class Arr_block:
 									occurence = True
 									
 								elif self.arr[i][i3-1].val() == 0:
-									print("\t Interchange happen" )
+									
+									#movement is going too happen for first time, sooo I want to save the current game
+									if occurence == False:
+										self.set_current_stage()
+
+									# print("\t Interchange happen" )
 									#interchangee values
 									self.arr[i][i3-1].reset( self.arr[i][i3].val() )
 									self.arr[i][i3].reset(0)
@@ -433,7 +488,7 @@ class Arr_block:
 									#there is an action
 									occurence = True
 								else:
-									print("\tAction no taken")
+									# print("\tAction no taken")
 									#nothing happen => cancel
 									nextX = False
 					i2+=1				

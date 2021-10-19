@@ -85,15 +85,39 @@ class TestImportMethods(unittest.TestCase):
 
 	def test_restore_stage(self):
 		gameX = Arr_block()
+		arrX = [[2,2,2,2],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+		gameX.cheap_2048(arrX)
+		gameX.new_move("down")
 		gameX.restore_stage()
 		arrX2 = gameX.array_illustration()
-		self.assertEqual(arrX2, [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]])
+		self.assertEqual(arrX2, arrX)
 
-	def test_hard_reset2(self):
+	def test_restore_stage2(self):
 		gameX = Arr_block()
-		arrX = [[32,16,8,2],[32,16,8,2],[32,16,8,4],[2,2,2,0]]
 		gameX.reset_2048()
-		self.assertEqual(gameX.ret_score(), 0)
+		gameX.new_round()
+		valX = False
+		if gameX.new_move("down") == True:
+			if gameX.new_move("left") == True:
+				valX =True
+		elif gameX.new_move("left") == True:
+			valX =True
+		gameX.restore_stage()
+		self.assertEqual(gameX.ret_score(), 2)
+
+	def test_restore_stage3(self):
+		gameX = Arr_block()
+		arrX = [[2,2,2,2],[0,0,0,0],[0,0,0,0],[8,0,0,0]]
+		gameX.cheap_2048(arrX)
+		gameX.set_current_stage()
+		arrX3 = [[2,2,2,2],[0,64,0,0],[128,0,0,0],[8,0,0,0]]
+		gameX.cheap_2048(arrX3)
+		gameX.restore_stage()
+		arrX2 = gameX.array_illustration()
+		self.assertEqual(arrX2, arrX)
+
+
+	
 
 
 	def test_movement(self):
@@ -145,6 +169,28 @@ class TestImportMethods(unittest.TestCase):
 		arrX2 = gameX.array_illustration()
 		self.assertEqual(arrX2, [[0,0,0,0],[2,4,0,0],[2,16,0,0],[0,0,0,0]])
 
+	def test_movement7(self):
+		gameX = Arr_block()
+		gameX.reset_2048()
+		gameX.new_round()
+		valX = False
+		if gameX.new_move("down") == True:
+			if gameX.new_move("left") == True:
+				valX =True
+		elif gameX.new_move("left") == True:
+			valX =True
+		arrX2 = gameX.array_illustration()
+		self.assertEqual(arrX2, [[0,0,0,0],[0,0,0,0],[0,0,0,0],[2,0,0,0]])
+
+	def test_movement8(self):
+		gameX = Arr_block()
+		gameX.reset_2048()
+		arrX = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[4,4,4,4]]
+		gameX.cheap_2048(arrX)
+		gameX.new_move("left")
+		gameX.new_move("left")
+		arrX2 = gameX.array_illustration()
+		self.assertEqual(arrX2, [[0,0,0,0],[0,0,0,0],[0,0,0,0],[16,0,0,0]])	
 
 	def test_movement9(self):
 		gameX = Arr_block()
@@ -153,7 +199,37 @@ class TestImportMethods(unittest.TestCase):
 		gameX.new_move("up")
 		arrX2 = gameX.array_illustration()
 		self.assertEqual(arrX2, [[0,0,0,8],[0,0,0,8],[0,0,0,4],[0,0,0,0]])
-		
+
+	def test_score2(self):
+		gameX = Arr_block()
+		gameX.reset_2048()
+		arrX = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[4,4,4,4]]
+		gameX.cheap_2048(arrX)
+		gameX.new_move("left")
+		gameX.new_move("left")
+		# arrX2 = gameX.array_illustration()
+		self.assertEqual(gameX.ret_score(), 32 )
+
+	def test_score3(self):
+		gameX = Arr_block()
+		gameX.reset_2048()
+		arrX = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[4,4,4,4]]
+		gameX.cheap_2048(arrX)
+		gameX.new_move("left")
+		# arrX2 = gameX.array_illustration()
+		self.assertEqual(gameX.ret_score(), 16 )
+
+	def test_restort_score(self):
+		gameX = Arr_block()
+		gameX.reset_2048()
+		arrX = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[4,4,4,4]]
+		gameX.cheap_2048(arrX)
+		gameX.new_move("left")
+		gameX.new_move("left")
+		gameX.restore_stage()
+		# arrX2 = gameX.array_illustration()
+		# print("thIS IS A SPECIAL TEST WITH THE SCORE OF: ", gameX.ret_score())
+		self.assertEqual(gameX.ret_score(), 16 )	
 
 	def test_Error_movement(self):
 		gameX = Arr_block()

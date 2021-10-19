@@ -20,22 +20,22 @@ screen = pygame.display.set_mode((800,800)) #height X:800  weight Y: 600
 
 #image:
 playerImg = pygame.image.load("motorbike3.png")
-playerImg2 = pygame.image.load("numbers/one.png")
+playerImg2 = pygame.image.load("numbers/numb/one.png")
 
-scoreImg = pygame.image.load("numbers/score_64.png")
+scoreImg = pygame.image.load("numbers/figures/score_64.png")
 scoreValue = 0
 
 #number values
-numbI_one = pygame.image.load("numbers/one_32.png")
-numbII_two = pygame.image.load("numbers/two_32.png")
-numbIII_three = pygame.image.load("numbers/three_32.png")
-numbIV_four = pygame.image.load("numbers/four_32.png")
-numbV_five = pygame.image.load("numbers/five_32.png")
-numbVI_six = pygame.image.load("numbers/six_32.png")
-numbVII_seven = pygame.image.load("numbers/seven_32.png")
-numbVIII_eight = pygame.image.load("numbers/eight_32.png")
-numbVIV_nine = pygame.image.load("numbers/nine_32.png")
-numb_zero = pygame.image.load("numbers/zero_32.png")
+numbI_one = pygame.image.load("numbers/numb/one_32.png")
+numbII_two = pygame.image.load("numbers/numb/two_32.png")
+numbIII_three = pygame.image.load("numbers/numb/three_32.png")
+numbIV_four = pygame.image.load("numbers/numb/four_32.png")
+numbV_five = pygame.image.load("numbers/numb/five_32.png")
+numbVI_six = pygame.image.load("numbers/numb/six_32.png")
+numbVII_seven = pygame.image.load("numbers/numb/seven_32.png")
+numbVIII_eight = pygame.image.load("numbers/numb/eight_32.png")
+numbVIV_nine = pygame.image.load("numbers/numb/nine_32.png")
+numb_zero = pygame.image.load("numbers/numb/zero_32.png")
 
 playerX = 370
 playerY = 480
@@ -44,9 +44,9 @@ playerY_c = 0
 
 ######################################################################################################
 #here I am transfering the square
-squareImg1 = pygame.image.load("numbers/stop_128.png")
-special_squareImg1 = pygame.image.load("numbers/special_stop_128.png")
-special_squareImg2 = pygame.image.load("numbers/special2_stop_128.png")
+squareImg1 = pygame.image.load("numbers/figures/stop_128.png")
+special_squareImg1 = pygame.image.load("numbers/figures/special_stop_128.png")
+special_squareImg2 = pygame.image.load("numbers/figures/special2_stop_128.png")
 
 def stopchain(pX, pY, special, ix):
 	sudoku = 138
@@ -73,14 +73,14 @@ def stopII(pX, pY):
 
 ######################################################################################################
 #Interactions ==> Comments
-GameoverImg = pygame.image.load("numbers/game_over_512.png")
+GameoverImg = pygame.image.load("numbers/figures/game_over_512.png")
 Gameover_T = False
 
 def gameOver(pX, pY):
 	screen.blit(GameoverImg,(pX, pY))
 	# screen.blit(special_squareImg1,(pX, pY))
 
-CongratulationImg = pygame.image.load("numbers/congratulation_512.png")
+CongratulationImg = pygame.image.load("numbers/figures/congratulation_512.png")
 Congratulation_T = False
 
 def Congratulation(pX, pY):
@@ -211,6 +211,14 @@ while running:
 					Gameover_T = True
 				else:
     					Gameover_T = False
+			if event.key == pygame.K_r:
+				print("Score is: ", gameX.ret_score())
+				print("Restart has been pressed")
+				gameX.restore_stage()
+				scoreValue = gameX.ret_score()
+				print("Previous score of game: ", gameX.ret_score())
+				print()
+				
 			if event.key == pygame.K_a:
 				print("New arouond start")
 				# if gameX.new_round() == False:
