@@ -87,19 +87,19 @@ class Arr_block:
 	def new_score(self, val):
 		self.score+=val
 	def false_score(self, val):
-    		self.score = val
+			self.score = val
 
 	def illustrate(self):
-    	#print the square by square of values
+		#print the square by square of values
 		i=0
-		print("\t", end='')
+		# print("\t", end='')
 		while i < 4:
 			i2=0
 			while i2 < 4:
-				print(self.arr[i][i2].val(), "\t", end='')
+				# print(self.arr[i][i2].val(), "\t", end='')
 				i2+=1
 			i+=1
-			print("\n\t", end='')
+			# print("\n\t", end='')
 		self.scoreX()
 
 	def set_current_stage(self):
@@ -180,7 +180,7 @@ class Arr_block:
 		self.fake_space(0)
 
 	def new_round(self):
-    	# start neew round by adding a number 2 on a random location
+		# start neew round by adding a number 2 on a random location
 		#  if spcae is full reetun False else return True
 		if self.spaceX() == 16:
 			return False
@@ -211,27 +211,27 @@ class Arr_block:
 		while True:
 			xa = keyboard.read_key()      
 			if xa == "down":
-				print("\tSpecial key => down")
+				#print("\tSpecial key => down")
 				self.new_move(xa)
 				xa = keyboard.read_key()
 				break
 			elif xa == "right":
-				print("\tSpecial Key =>  right")
+				#print("\tSpecial Key =>  right")
 				self.new_move(xa)
 				xa = keyboard.read_key()
 				break
 			elif xa == "left":
-				print("\tSpecial Key =>left")
+				#print("\tSpecial Key =>left")
 				self.new_move(xa)
 				xa = keyboard.read_key()
 				break
 			elif xa == "up":
-				print("\tSpecial Key => up")
+				#print("\tSpecial Key => up")
 				self.new_move(xa)
 				xa = keyboard.read_key()
 				break
-			else:
-				print("\tKey pressed: ", xa)
+			# else:
+			# 	print("\tKey pressed: ", xa)
 
 
 

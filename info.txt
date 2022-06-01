@@ -1,0 +1,67 @@
+
+Basic work of my 2048 
+
+2nd stage of being
+
+Slack OAuth: xoxb-2593156842183-2631566924864-MjJh3ZFCjQR1zwQsb3JM65dv
+
+
+icon: https://www.flaticon.com/search?word=t&color=black&shape=fill&order_by=4&type=icon
+
+
+strructuure of gamee
+Gmae obj:
+    => Block:  seequence of numb
+    => Arr_block: array of blocks
+        => variables
+            => arr : arrray of blocks
+            => score = number of pointts obtained
+            => space = how many squares are occupided
+            => pr_st = store values of previous run
+            => pr_sc = store score lues of previouus run
+            => pr_sp = store space of previous run
+
+            => lengthX = vales oof square for game
+            => highspace_T = is tthere a highest number
+            => highspaceV = valuee of highest number
+            => highspace = location of highest number
+        => functions:
+            => basic:
+                => __init__ = game initialize
+            => length:
+                => length() = print length by array
+                => return_length() = return length of array 
+            => space:
+                => spaceX() = return the spaces of game ocupieded
+                => spaceI() = increase by one the spaces of game occupided
+                => spaceD() = decrease by one the spaces of game occupided 
+                => fake_space(fs) = sett a space by force
+            => score:
+                => scoreX() = print score
+                => ret_score() = return actual scoree of the game
+                => new_score(fs) = increase the value of score by value fs
+                => false_score(fs) = set a new score
+            => arr:
+                => illustrate() = print suqare of game witth tab and all
+                => array_illustration() = set up the highest values and return and array of current values
+                => cheap_2048(fs) = modify the current game to specific values
+                => reset_2048() = set game values, score and space to 0 
+                => new_round() = start neew round by adding a numbeer 2 on a random location ; if spcae is full reetun False else return True
+                => new_action() = capture key pressed and acive respective new move
+                => new_move(fs) = move al tthe vaues of gameregarding the fs giveen; if return False, nothing happen, if return True something happen
+            => highspacee:
+                => ret_highspace() = return loocattion of highestt numbeer of square
+                => ret_highspace_T() = return highest number of quation
+                => ret_highspace_V() = return if T/F hiighest number oof equation
+            => previous stage:
+                => set_current_stage() = save the current score, arr values and score
+                => restore_stage() = restore to actual all the previous stage of scores,arr values and space
+        => game dynamic:
+            1. __init__ => 2.
+            2. set_current_stage() => 3.
+            3. new_round() => 4.
+            4. new_move() => if True => 2. 
+                             if False => 4.
+
+
+
