@@ -1,6 +1,6 @@
 Game of 2048 is a popular game from Playstore which I recreated  using pygame Library from Python.
 
-A simmple game of 2048; it is composed of main game file "game_A" along with 1 class objects, logic_T, which contain all the actions occurring in the gamee and both objects, thee block for numbers and the arrays of Blocks.
+A simple game of 2048; it is composed of main game file "game_A" along with 1 class objects, logic_T, which contain all the actions occurring in the gamee and both objects, thee block for numbers and the arrays of Blocks.
 
 <img width="350" heigth="350" alt="Screen Shot 2022-05-31 at 11 24 10 PM" src="https://user-images.githubusercontent.com/44034603/171325513-a3e603c8-5b2f-4e86-bbbd-2c56e4860290.png">
 
@@ -21,4 +21,10 @@ Features:
 
 <img width="450" heigth="350" alt="Screen Shot 2022-06-01 at 1 23 34 AM" src="https://user-images.githubusercontent.com/44034603/171333650-813bc5b0-fa5f-4009-92a7-89248112a6ff.png">
 
+===================================================
+
+
+The game was turn into an executable using the library pyinstaller; it can be run by acceding the folder pygame/dist, file game_A.exe.
+
+In casee you wish to run in from teminal; you can run it with command 'python3 game_A.py"; however, the foldeer of image known as numbers, must bee ddiosplace from dist to pygame
 
