@@ -204,6 +204,7 @@ class Arr_block:
 		self.arr[loc1][loc2].reset(2)
 		self.new_score(2)
 		self.spaceI()
+		
 		return True
 	
 

@@ -245,13 +245,9 @@ while running:
 				gameX.resetS_2048()
 				gameX.new_round()
 				scoreValue = gameX.ret_score()
+				Gameover_T = False
 
-			if event.key == pygame.K_RETURN:
-				# scoreValue+=1
-				if Gameover_T ==False:
-					Gameover_T = True
-				else:
-					Gameover_T = False
+			# 
 			if event.key == pygame.K_r:
 				# print("Score is: ", gameX.ret_score())
 				# print("Restart has been pressed")
@@ -311,8 +307,13 @@ while running:
 	scoreX2(396, 680)
 	scoreVX(680, 680)
 
-	if Gameover_T == True:
-		gameOver(200, 200)
+	if gameX.spaceX() == 16 and Gameover_T==False:
+		# print("All spaces are filled")
+		if gameX.all_poss() == True:
+			gameOver(170, 170)
+			Gameover_T=True
+	if Gameover_T:
+		gameOver(170, 170)
 	if Shortcut_T == True:
 		board_control(160,200)
 

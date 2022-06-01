@@ -217,6 +217,7 @@ class Arr_block:
 		self.arr[loc1][loc2].reset(2)
 		self.new_score(2)
 		self.spaceI()
+		# print("Space: ", self.space)
 		return True
 	
 
@@ -504,6 +505,129 @@ class Arr_block:
 									# print("\tAction no taken")
 									#nothing happen => cancel
 									nextX = False
+					i2+=1				
+				i+=1
+				#i2+=1
+			
+		return occurence
+
+
+	def all_poss(self):
+		# print("AAll possibilities is happenning")
+		if self.poss_move("up") == False:
+			# print("\t Up is happenning")
+			if self.poss_move("down") == False:
+				# print("\t Down is happenning")
+				if self.poss_move("right") == False:
+					# print("\t Right is happenning")
+					if self.poss_move("left") == False:
+						# print("\t Left is happenning")
+						return True
+		return False
+
+
+
+
+	def poss_move(self, val):
+			#print("\tDouble Special key is ", val)
+		occurence = False
+		if val == "up":
+			#print("Running right")
+			i=1
+			limitX = 0
+			i2 = 0
+			#this is the last square can be compare, in case of fusion, this sqaurre most be take out of equation
+			while i2 < 4:
+				limitX =0
+				i=1
+				while i< self.lengthX:
+					if self.arr[i][i2].val() > 0:
+						i3 = i
+						nextX = True
+						while i3 > limitX and nextX:
+							#print("\t Something must be done")
+							if self.arr[i3][i2].val() == self.arr[i3-1][i2].val() :
+								return True
+								
+							elif self.arr[i3-1][i2].val() == 0:
+								return True
+							i3-=1
+					i+=1
+				i2+=1
+			# i+=1
+		elif val == "down":
+			# print("Running DOWN")
+			i=2
+			# while i >= 0:
+			i2 = 0
+			while i2 < 4:
+				i =2
+				limitX = 3
+				# print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
+				while i >= 0:
+					if self.arr[i][i2].val() > 0:
+						i3 = i
+						nextX = True
+						while i3 < limitX and nextX:
+							if self.arr[i3][i2].val() == self.arr[i3+1][i2].val() :
+								
+								return True
+
+							elif self.arr[i3+1][i2].val() == 0:
+								
+								return True
+							i3+=1
+					i-=1			
+				i2+=1
+				# i-=1
+		elif val == "right":
+			i2=2
+			#while i2 >= 0:
+			i=0
+			while i < 4:
+				# print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
+				limitX = 3
+				i2 = 2
+				while i2 >=0: 
+					if self.arr[i][i2].val() > 0:
+						i3 = i2
+						nextX = True
+						while i3 < limitX and nextX:
+							if self.arr[i][i3+1].val() == self.arr[i][i3].val():
+								
+								return True
+							elif self.arr[i][i3+1].val() == 0:
+								
+								return True
+							i3+=1
+					i2-=1
+				i+=1
+					#i2-=1
+		elif val == "left":
+			i2=1
+			#while i2 < 4:
+			i = 0
+			while i < 4:
+				# print("(",i, " , ", i2, ")")
+				# if i2 < 4:
+				# 	print("(",i, " , ", i2, ")" , "Check ", self.arr[i][i2].val() )
+				limitX = 0
+				i2 = 1
+				while i2 < 4: 
+					#print("Something happen ", i, " and ", i2)
+					if self.arr[i][i2].val() > 0:
+							i3 = i2
+							nextX = True
+							while i3 >limitX and nextX:
+								#print("i3 => ", i3)
+								if self.arr[i][i3-1].val() == self.arr[i][i3].val():
+									
+									return True
+									
+								elif self.arr[i][i3-1].val() == 0:
+									
+									return True
+								i3-=1
 					i2+=1				
 				i+=1
 				#i2+=1
