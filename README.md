@@ -27,5 +27,5 @@ Features:
 
 ===================================================
 
-In casee you wish to run in from teminal; you can run it with command 'python3 game_A.py"; however, the foldeer of image known as numbers, must bee ddiosplace from dist to pygame
+In case you wish to run in from teminal; you can run it with command 'python3 game_A.py"; however, the foldeer of image known as numbers, must bee ddiosplace from dist to pygame
 
