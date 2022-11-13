@@ -2,7 +2,7 @@
 
 Game of 2048 is a popular game from Playstore which I recreated  using pygame Library from Python.
 
-A simple game of 2048; it is composed of main game file "game_A" along with 1 class objects, logic_T, which contain all the actions occurring in the gamee and both objects, thee block for numbers and the arrays of Blocks.
+A simple game of 2048; it is composed of main game file "game_A" along with 1 class objects, logic_T, which contain all the actions occurring in the game and both objects, thee block for numbers and the arrays of Blocks.
 
 <img width="350" heigth="350" alt="Screen Shot 2022-05-31 at 11 24 10 PM" src="https://user-images.githubusercontent.com/44034603/171325513-a3e603c8-5b2f-4e86-bbbd-2c56e4860290.png">
 
